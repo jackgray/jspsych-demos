@@ -26,7 +26,7 @@ const instructions_1a = {
     "<p>When you visit a planet, you can choose an alien to trade with.</p><p>When you trade with an alien, it will either give you <b>treasure</b> or <b>junk</b>.</p>",
     "<p>Treasure is valuable.</p><p>This is what treasure looks like.</p>",
     "<p>Junk is worthless.</p><p>This is what junk looks like.</p>",
-    "<p>To choose an alien to trade with, you will use the</p><p><b>left/right arrow keys</b> on your keyboard.</p>",
+    "<p>To choose an alien to trade with, you can either use your touchscreen or left/right arrow keys on your keyboard.</p>",
     "<p>An alien may not give you treasure <i>every</i> time you trade with it.</p><p>Sometimes aliens may not have treasure to give.</p>",
     "<p>Some aliens may be <b>more likely to give you treasure than others.</b></p><p>That is, you may gather more treasure by choosing to trade more with some aliens than others.</p>",
     "<p>Your goal is to figure out, and trade with, the aliens that are most likely to give you treasure.</p>",
@@ -53,17 +53,17 @@ const instructions_1a = {
 const quiz_1 = {
   type: jsPsychTwoStepComprehension,
   prompts: [
-    "To choose an alien to trade with, which keys do you use?",
+    "How can you choose an alien to trade with?",
     "<i>True</i> or <i>False</i>:&nbsp;Your goal is to figure out which aliens are most likely to give treasure.",
     "<i>True</i> or <i>False</i>:&nbsp;Some aliens may be more likely to give me treasue than others.",
   ],
   options: [
-    ["a/d keys", "1/0 keys", "left/right arrow keys"],
+    ["a/d keys", "1/0 keys", "tap/touch it, or left/right arrow keys"],
     ["True", "False"],
     ["True", "False"],
   ],
   correct: [
-    "left/right arrow keys",
+    "tap/touch it, or left/right arrow keys",
     "True",
     "True"
   ],
@@ -124,7 +124,7 @@ const instructions_1b_node = {
   timeline: [{
     type: jsPsychTwoStepInstructions,
     pages: [
-      "<p>Great job! Now let's practice with two aliens.</p><p>On the next screen, use the <b>left/right arrow keys</b> on your keyboard to choose an alien to trade with. You will have 10 chances to figure out which alien is more likely to give you treasure.</p>",
+      "<p>Great job! Now let's practice with two aliens.</p><p>On the next screen, choose an alien to trade with. If you are on mobile, tap, if you are on a computer, use the left/right arrow keys. You will have 10 chances to figure out which alien is more likely to give you treasure.</p>",
       // "<p><b>Hint:</b> The aliens will sometimes switch the side of the screen<br>they are on. The side an alien appears on does not change<br>how likely it is to give you treasure.</p>"
     ],
     add_aliens: [false, false],
@@ -190,7 +190,7 @@ const practice_1_help_node = {
     type: jsPsychTwoStepInstructions,
     pages: [
       "<p>Seems like you're having trouble.</p><p>Remember, you are trying to find the alien that  gives you treasure<br><b>most of the time</b>.</p>",
-      "<p>Let's try again.</p><p>On the next screen, use the <b>left/right arrow keys</b> on your keyboard to choose an alien to trade with. You will have 10 more chances to figure out which alien is more likely to give you treasure.</p>"
+      "<p>Let's try again.</p><p>On the next screen, choose an alien to trade with. If you are on mobile, tap, if you are on a computer, use the left/right arrow keys. You will have 10 more chances to figure out which alien is more likely to give you treasure.</p>",
     ],
     show_clickable_nav: true,
     button_label_previous: "Prev",
@@ -238,7 +238,7 @@ const instructions_2a = {
     `<p>To visit a planet, you will pick a rocket ship to travel on.</p><p>Below are two example rocket ships to pick from:<br>the <b><font color='${practice_info.font_colors[0]}'>${practice_info.rocket_names[0]}</font></b> and <b><font color='${practice_info.font_colors[1]}'>${practice_info.rocket_names[1]}</font></b> rocket ships.</p>`,
     `<p>Each rocket ship has a planet it will fly to most of the time.</p><p>The <b><font color='${practice_info.font_colors[0]}'>${practice_info.rocket_names[0]}</font></b> rocket ship will fly to one planet most of the time.</p><p>The <b><font color='${practice_info.font_colors[1]}'>${practice_info.rocket_names[1]}</font></b> rocket ship will fly to the other planet most of the time.</p>`,
     "<p>If you want to travel to a certain planet, you should pick<br>the rocket ship that is most likely to take you there.</p>",
-    "<p>To choose a rocket ship to travel on, you will use the</p><p><b>left/right arrow keys</b> on your keyboard.</p>",
+    "<p>Use your touchscreen or arrow keys to select a rocket to travel on.</p>",
   ],
   add_aliens: [false, false, false, false, false, false],
   add_rockets: [false, false, true, true, true, true],
@@ -262,17 +262,17 @@ const instructions_2a = {
 const quiz_2 = {
   type: jsPsychTwoStepComprehension,
   prompts: [
-    "To choose a rocket ship to travel on, which keys do you use?",
+    "How can you choose a rocket to travel on?",
     "<i>True</i> or <i>False</i>:&nbsp;&nbsp;Rocket ships will always travel to the same planets.",
     "<i>True</i> or <i>False</i>:&nbsp;&nbsp;Each rocket ship has a planet it will travel to most of the time.",
   ],
   options: [
-    ["a/d keys", "1/0 keys", "left/right arrow keys"],
+    ["a/d keys", "1/0 keys", "touch/tap, or left/right arrow keys"],
     ["True", "False"],
     ["True", "False"],
   ],
   correct: [
-    "left/right arrow keys",
+    "touch/tap, or left/right arrow keys",
     "False",
     "True"
   ],
@@ -416,7 +416,6 @@ const instructions_3a = {
     "<p><b>Hint #1:</b> How likely an alien is to give you treasure will change over time, but this change will be slow. So you should remember which aliens are giving you treasure as an alien giving you treasure now is likely to continue giving you treasure for a while.</p>",
     "<p><b>Hint #2:</b> Whether you get treasure depends only on the alien you choose to trade with, <u>not</u> on what rocket ship brought you to that alien, the order in which you choose aliens, or the aliens you choose to not trade with.</p>",
     "<p><b>Hint #3:</b> If there is an alien you want to trade with, remember to pick<br>the rocket ship that is most likely to take you to that alien’s planet."
-
   ],
   add_aliens: [false, false, false, false, false, false, false],
   add_rockets: [false, false, false, false, false, false, false],
@@ -497,7 +496,6 @@ const instructions_loop_3a = {
     } else {
       return false;
     }
-
   }
 }
 
@@ -505,10 +503,11 @@ const instructions_loop_3a = {
 // Define instructions timeline
 //---------------------------------------//
 
+// Replacing jsPsychHtmlKeyboardResponse with button response plug-in (for MRI runs, experimenter can click)
 var INSTRUCTIONS_SKIP = {
-  type: jsPsychHtmlKeyboardResponse,
-  stimulus: '<p>You are starting a demo of the <b>two-step task.</b></p><p>To see the instructions, press the "1" key. To skip them, press the "2" key.</p>',
-  choices: ["1","2"]
+  type: jsPsychImageButtonResponse,
+  prompt: '<p>Welcome to the two-step decision making task, or Aliens Game.<br>If you remember how to play you may skip the practice.',
+  choices: ["Practice","Skip Practice and Play"]
 }
 
 var INSTRUCTIONS = {
@@ -521,8 +520,10 @@ var INSTRUCTIONS = {
   ],
   conditional_function: function(){
         var data = jsPsych.data.get().last(1).values()[0];
-        if(jsPsych.pluginAPI.compareKeys(data.response, '2')){
-            return false;
+        // Removing compareKeys function. We can just look at the returned data object
+        //if(jsPsych.pluginAPI.compareKeys(data.response, '2')){
+        if (data.response == 1) {
+          return false;
         } else {
             return true;
         }

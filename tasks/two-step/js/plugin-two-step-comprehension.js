@@ -86,7 +86,7 @@ var jsPsychTwoStepComprehension = (function (jspsych) {
         line-height: 1.5em;
       }
       .comprehension-box .jspsych-survey-multi-choice-preamble h4 {
-        font-size: 18px;
+        font-size: 15px;
         margin-block-start: 1em;
         margin-block-end: 1.2em
       }
@@ -111,12 +111,11 @@ var jsPsychTwoStepComprehension = (function (jspsych) {
       }
       .comprehension-box input[type='submit'] {
         position: absolute;
-        top: 95%;
+        bottom: 15%;
         left: 50%;
         -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
-        font-size: 16px;
-        padding: 4px 8px;
+        font-size: 14px;
       }
       </style>`;
 

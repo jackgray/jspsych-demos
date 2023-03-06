@@ -18,18 +18,19 @@
   transform: translate(-50%, 0%);
 
   /* two-step container size */
-  height: 90vh;
-  max-height: 576px;
-  min-height: 400px;
 
-  width: 90vw;
-  max-width: 1024px;
-  min-width: 600px;
+  /* Lowering window fill percentage to accommodate ios devices that don't allow true fullscreen mode in browsers */
+  height: 85vh; 
+  /*max-height: 576px;
+  min-height: 400px; */
+
+  width: 85vw;
+  /*max-width: 1024px;
+  min-width: 600px;*/
 
   /* two-step container border */
   border: 2px solid black;
   border-radius: 4px;
-
 }
 
 /* ---------------------------------- */
@@ -99,9 +100,7 @@
 /* ---------------------------------- */
 /* Tower CSS                          */
 /* ---------------------------------- */
-
 .tower {
-
   /* tower position */
   position: absolute;
   bottom: 5%;
@@ -117,7 +116,6 @@
   background:
   repeating-linear-gradient(45deg, transparent, transparent calc(0.01 * var(--width)), gray calc(0.01 * var(--width)), gray calc(0.016 * var(--width)), transparent calc(0.016 * var(--width)), transparent calc(0.06 * var(--width))),
   repeating-linear-gradient(-45deg, transparent, transparent calc(0.01 * var(--width)), gray calc(0.01 * var(--width)), gray calc(0.016 * var(--width)), transparent calc(0.016 * var(--width)), transparent calc(0.06 * var(--width)));
-
 }
 .tower[side='0'] {
   left: calc(50% - 0.5 * var(--width) + 5px);
@@ -143,7 +141,6 @@
   background-image:
   repeating-linear-gradient(45deg, transparent, transparent calc(0.012 * var(--width)), gray calc(0.012 * var(--width)), gray calc(0.014 * var(--width)), transparent calc(0.016 * var(--width)), transparent calc(0.030 * var(--width))),
   repeating-linear-gradient(-45deg, transparent, transparent calc(0.012 * var(--width)), gray calc(0.012 * var(--width)), gray calc(0.014 * var(--width)), transparent calc(0.016 * var(--width)), transparent calc(0.030 * var(--width)));
-
 }
 .tower[side='0'] .arm {
   left: 100%;
@@ -152,19 +149,15 @@
   right: 100%;
 }
 .platform {
-
   /* platform position */
   position: absolute;
   bottom: 5%;
-
   /* platform size */
   height: calc(0.02 * var(--width));
   width: calc(0.21 * var(--width));
-
   /* platform aesthetics */
   background: grey;
   border-radius: 2px;
-
 }
 .platform[side='0'] {
   left: calc(50% - 0.5 * var(--width) + 0.06 * var(--width) + 25px);
@@ -179,7 +172,6 @@
 /* ---------------------------------- */
 /* Rocket CSS                         */
 /* ---------------------------------- */
-
 .rocket {
   position: absolute;
   bottom: calc(5% + 0.40 * var(--width));
@@ -285,7 +277,7 @@
 }
 .rocket-fire {
   display: none;
-  position: absolute;
+  position: relative;
   left: 50%;
   top: 100%;
   width: 50%;
@@ -317,14 +309,11 @@
 /* ---------------------------------- */
 
 .alien {
-
   /* alien position */
   position: absolute;
   bottom: 5%;
-
   /* alien position */
   width: calc(0.50 * var(--width));
-
 }
 .alien[state='1'] {
   display: none;
@@ -364,9 +353,7 @@
 /* ---------------------------------- */
 /* Rewards CSS                        */
 /* ---------------------------------- */
-
 .diamond, .rock {
-
   /* rewards position */
   position: absolute;
   bottom: calc(5% + 0.405 * var(--width));
@@ -379,7 +366,6 @@
   display: none;
   background-repeat: no-repeat;
   background-size: contain;
-
 }
 .diamond {
   background-image: url('../img/gems.png');

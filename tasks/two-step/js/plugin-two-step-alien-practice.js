@@ -121,6 +121,48 @@ var jsPsychTwoStepAlienPractice = (function (jspsych) {
       // Response handling.
       //---------------------------------------//
 
+      // Make clicks to rockets and aliens manifest as key presses
+      // Allows both touch/clicks and keys to be used for response
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      var simulateAlienKeyPress = function(selectClass, key1, key2){
+        document.getElementById('alien-0').addEventListener('click',(e) => { 
+        // res_key = e.target.side
+          console.log(e.target.id)
+          var selection = Number(e.target.id.split("-")[1])
+          console.log("KEY: ", selection)
+          console.log("Generating phantom keypress event to simulate selection as kb press...")
+          if (selection == 0) {
+            var keyToPress = key1
+          } else {
+            var keyToPress = key2
+          }
+          jsPsych.pluginAPI.keyDown('arrowleft');
+          sleep(300)
+          jsPsych.pluginAPI.keyUp('arrowleft');
+    
+        })
+        document.getElementById('alien-1').addEventListener('click',(e) => { 
+        // res_key = e.target.side
+          console.log(e.target.id)
+          var selection = Number(e.target.id.split("-")[1])
+          console.log("KEY: ", selection)
+          console.log("Generating phantom keypress event to simulate selection as kb press...")
+          if (selection == 0) {
+            var keyToPress = key1
+          } else {
+            var keyToPress = key2
+          }
+          jsPsych.pluginAPI.keyDown('arrowright');
+          sleep(300)
+          jsPsych.pluginAPI.keyUp('arrowright');
+     
+        })
+      }
+      
+      simulateAlienKeyPress();  // Start listening for alien click as soon as page generates
+
       // confirm screen resolution
       const screen_resolution = [window.innerWidth, window.innerHeight];
       if (screen_resolution[0] < 540 || screen_resolution[1] < 400) {

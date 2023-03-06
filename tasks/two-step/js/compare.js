@@ -50,7 +50,7 @@ const task_info = {
 }
 
 // Define practice stimuli.
-const practice_info = {
+var practice_info = {
   planet_colors: mapping.slice(2,4).map(function(i) {return planet_colors[i]} ),
   font_colors: mapping.map(function(i) {return font_colors[i]} ),
   planet_names: mapping.slice(2,4).map(function(i) {return color_names[i]} ),
@@ -62,12 +62,34 @@ const practice_info = {
 }
 
 // Define images to preload.
-const preload_images = task_info['aliens'].concat(practice_info['aliens']);
+var preload_images = task_info['aliens'].concat(practice_info['aliens']);
 
 //---------------------------------------//
 // Define reward outcomes.
 //---------------------------------------//
 
+// function loadData(filename){
+//   return require(filename);
+//   // console.log("sending http request to server")
+//   // var xhr = new XMLHttpRequest();
+//   // console.log('using path: ', filename)
+//   // try {
+//   //   xhr.open('GET', filename);
+//   //   console.log(xhr.text)
+//   //   xhr.onreadystatechange = function() {
+//   //     alert(xhr.responseText);
+//   //   }
+//   //   if (xhr.status === 200) {
+//   //     xhr.send(null)
+//   //     console.log(xhr.responseText)
+//   //   }
+//   //   return xhr.responseText
+//   // } catch (error) {
+//   //   console.error(error)
+//   // }
+//   // xhr.setRequestHeader('Content-Type', 'application/json');
+//   // xhr.send(JSON.stringify({filedata: data, filename: filename}));
+// }
 
 
 // Get last session data for subject by guessing name of last data file and loading it
@@ -97,15 +119,22 @@ console.log("Loading last session data from: ", last_datafile);
 
 // Randomly choose the drifting outcome probabilities for the task.
 // Drifts are chosen from a standalone file pre-generated Gaussian random walks.
+
 var drift_ix = jsPsych.randomization.sampleWithoutReplacement([0,1,2,3], 1)[0];
+
+
+console.log('using ix: ', drift_ix)
+
 const drifts = [drifts_01, drifts_02, drifts_03, drifts_04][drift_ix];
 
+console.log("defining outcomes");
 // Define outcomes.
 // Evaluate outcomes to define the trial-by-trial outcomes for each bandit.
 const outcomes = [];
 for (let i=0; i<drifts.length; i++) {
   outcomes.push( drifts[i].map(p => Math.random() < p ? 1 : 0) )
 }
+console.log('defining transistions');
 //---------------------------------------//
 // Define transition probabilities.
 //---------------------------------------//
@@ -128,6 +157,7 @@ while (true) {
 
 // Preallocate space.
 var TWO_STEP_TASK = [];
+console.log('generating trials');
 // Iteratively generate trials.
 for (let i=0; i < outcomes.length; i++){
 
@@ -185,11 +215,17 @@ for (let i=0; i < outcomes.length; i++){
 
   // Append trial.
   TWO_STEP_TASK.push(trial_node)
+  // console.log('appending trial: ', TWO_STEP_TASK);
 }
+// var last_drift = experiment_vars[1];
+// var TWO_STEP_TASK = experiment_vars[0];
+// console.log('loading last drift: ', last_drift);
+console.log('task: ', TWO_STEP_TASK.slice(0,100));
 
-//---------------------------------------//
-// Define transition screens.
-//---------------------------------------//
+  //---------------------------------------//
+  // Define transition screens.
+  //---------------------------------------//
+console.log('defining ready screens');
 // Define ready screen.
 var READY_01 = {
   type: jsPsychTwoStepInstructions,

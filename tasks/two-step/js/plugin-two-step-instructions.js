@@ -98,27 +98,29 @@ var jsPsychTwoStepInstructions = (function (jspsych) {
       }
       .jspsych-instructions-nav {
         position: absolute;
-        bottom: 0%;
+        top: 25%;
         left: 50%;
         -webkit-transform: translate(-50%, 0%);
-        transform: translate(-50%, 0%);
-        padding: 10px 0px;
+        transform: translate(-80%, 0%);
+        padding: 10px 10px;
+        height: 10%;
       }
       .jspsych-instructions-nav .jspsych-btn {
-        padding: 4px 12px;
+        bottom: 65%;
         font-size: 15px;
       }
       .jspsych-instructions-nav .jspsych-btn:focus {
         outline: none;
       }
       .instructions-box {
-        position: absolute;
-        bottom: calc(0.60 * var(--height));
+        position: relative;
         left: 50%;
+        top: 7%;
         -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, 0%);
-        width: 600px;
-        height: 150px;
+        width: 75%;
+        height: 20%;
+        padding-top: 10px;
         background: white;
         border: 2px solid grey;
         border-radius: 12px;
@@ -132,8 +134,8 @@ var jsPsychTwoStepInstructions = (function (jspsych) {
         width: 95%;
       }
       .instructions p {
-        font-size: 17px;
-        line-height: 1.5em;
+        font-size: 15px;
+        line-height: 1em;
         margin-block-start: 0.5em;
         margin-block-end: 0.5em;
       }

@@ -1,6 +1,14 @@
 var jsPsychTwoStepTrial = (function (jspsych) {
   'use strict';
 
+  // function to call php script for writing data to server
+  function saveData(filename, data){
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/write_data.php');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({filedata: data, filename: filename}));
+  }
+
   const info = {
     name: 'two-step-trial',
     description: '',
@@ -166,6 +174,70 @@ var jsPsychTwoStepTrial = (function (jspsych) {
       // Section 2: Response handling.
       //---------------------------------------//
 
+      // detect element clicks and convert them to keypress
+      function sleep(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        var simulateAlienKeyPress = function(selectClass, key1, key2){
+          document.getElementById('alien-0').addEventListener('click',(e) => { 
+          // res_key = e.target.side
+            console.log(e.target.id)
+            var selection = Number(e.target.id.split("-")[1])
+            console.log("KEY: ", selection)
+            console.log("Generating phantom keypress event to simulate selection as kb press...")
+            if (selection == 0) {
+              var keyToPress = key1
+            } else {
+              var keyToPress = key2
+            }
+            jsPsych.pluginAPI.keyDown('arrowleft');
+            sleep(300)
+            jsPsych.pluginAPI.keyUp('arrowleft');
+      
+          })
+          document.getElementById('alien-1').addEventListener('click',(e) => { 
+          // res_key = e.target.side
+            console.log(e.target.id)
+            var selection = Number(e.target.id.split("-")[1])
+            console.log("KEY: ", selection)
+            console.log("Generating phantom keypress event to simulate selection as kb press...")
+            if (selection == 0) {
+              var keyToPress = key1
+            } else {
+              var keyToPress = key2
+            }
+            jsPsych.pluginAPI.keyDown('arrowright');
+            sleep(300)
+            jsPsych.pluginAPI.keyUp('arrowright');
+       
+          })
+        }
+  
+        var simulateRocketKeyPress = function(rocket_class, key1, key2){
+          document.getElementById('body-0').addEventListener('click',(e) => { 
+          // res_key = e.target.side
+            console.log(e.target.id)
+            var selection = Number(e.target.id.split("-")[1])
+            console.log("KEY: ", selection)
+            console.log("Generating phantom keypress event to simulate selection as kb press...")
+            jsPsych.pluginAPI.keyDown('arrowleft');
+            sleep(300)
+            jsPsych.pluginAPI.keyUp('arrowleft');
+  
+          }, {once: true})
+          document.getElementById('body-1').addEventListener('click',(e) => { 
+          // res_key = e.target.side
+            console.log(e.target.id)
+            var selection = Number(e.target.id.split("-")[1])
+            console.log("KEY: ", selection)
+            // console.log("Generating phantom keypress event to simulate selection as kb press...")
+            jsPsych.pluginAPI.keyDown('arrowright');
+            sleep(300)
+            jsPsych.pluginAPI.keyUp('arrowright');
+          }, {once: true})
+        }
+      
+      simulateRocketKeyPress();
       // confirm screen resolution
       const screen_resolution = [window.innerWidth, window.innerHeight];
       if (screen_resolution[0] < 540 || screen_resolution[1] < 400) {
@@ -212,6 +284,8 @@ var jsPsychTwoStepTrial = (function (jspsych) {
         jsPsych.pluginAPI.cancelAllKeyboardResponses();
 
         // Record responses.
+        simulateRocketKeyPress();
+        simulateAlienKeyPress();
         response.state_1_rt = info.rt;
         response.state_1_key = trial.valid_responses_s1.indexOf(info.key);
         response.state_1_choice = state_1_ids[response.state_1_key];
@@ -220,22 +294,16 @@ var jsPsychTwoStepTrial = (function (jspsych) {
         // If animation = true, then the rocket blast off animation will play.
         // Otherwise, the next state of the trial will present immediately.
         if ( trial.animation ) {
-
           // display_element.querySelector('#rocket-' + response.state_1_key).setAttribute('state', 'common');
           display_element.querySelector('#fire-' + response.state_1_key).style['display'] = 'inherit';
           setTimeout(function() { state_transition(); }, 800);
-
         } else {
-
           state_transition();
-
         }
-
       };
 
       // Intermediate function to update screen objects from state 1 to state 2.
       var state_transition = function() {
-
         // Define second state.
         response.state_2 = ( trial.transition == 1 ) ? response.state_1_choice : 1 - response.state_1_choice;
 
@@ -272,7 +340,8 @@ var jsPsychTwoStepTrial = (function (jspsych) {
           persist: false,
           allow_held_key: false
         });
-
+        simulateRocketKeyPress();
+        simulateAlienKeyPress();
         // end trial if no response.
         if (trial.choice_duration !== null) {
           jsPsych.pluginAPI.setTimeout(function() {
@@ -290,6 +359,8 @@ var jsPsychTwoStepTrial = (function (jspsych) {
         jsPsych.pluginAPI.cancelAllKeyboardResponses();
 
         // Record responses.
+        simulateRocketKeyPress();
+        simulateAlienKeyPress();
         response.state_2_rt = info.rt;
         response.state_2_key = trial.valid_responses_s2.indexOf(info.key);
         response.state_2_choice = state_2_ids[response.state_2_key];
@@ -324,8 +395,26 @@ var jsPsychTwoStepTrial = (function (jspsych) {
           jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
         }
 
+        // pull vars embedded in the redcap generated url
+        var record_id = String(jsPsych.data.getURLVariable('record_id'));
+        var instance = String(jsPsych.data.getURLVariable('instance'));
+        var event_name = String(jsPsych.data.getURLVariable('event_name')).split('_')[0];
+        var project = String(jsPsych.data.getURLVariable('project'));
+        
+        // force record_id to 3 chars
+        while (record_id.length < 3){
+          record_id = '0' + record_id
+        }
+        // and session number to 2 chars
+        while (instance.length < 2){
+          instance = '0' + instance
+        }
+        var session = event_name + instance
         // gather the data to store for the trial
         var trial_data = {
+          record_id: record_id, //(new URL(window.location)).searchParams.get('record_id'),
+          session: session,
+          project: project,
           state_1_ids: state_1_ids,
           state_1_key: response.state_1_key,
           state_1_choice: response.state_1_choice,
@@ -344,8 +433,13 @@ var jsPsychTwoStepTrial = (function (jspsych) {
         };
 
         // clear the display
-        display_element.innerHTML = '';
-
+        display_element.innerHTML = '';  
+        // BIDS format the filename
+        var filename =  'sub-' + trial_data.project + record_id + '_ses-' + session + '_task-twostep'+ '_beh.json';//dt.getFullYear() + dt.getMonth() + dt.getDay() + dt.getHours() + '.csv'
+      
+        // Incrementally write data to server -- REMINDER: make sure your data folder exists (in root of website as 'data') and that permissions are set properly 
+        console.log("writing data to file at ", filename);
+        saveData(filename, jsPsych.data.get().json());
         // move on to the next trial
         jsPsych.finishTrial(trial_data);
       };
