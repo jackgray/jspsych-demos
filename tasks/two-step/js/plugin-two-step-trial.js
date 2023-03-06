@@ -214,7 +214,7 @@ var jsPsychTwoStepTrial = (function (jspsych) {
         }
   
         var simulateRocketKeyPress = function(rocket_class, key1, key2){
-          document.getElementById('body-0').addEventListener('click',(e) => { 
+          document.getElementById('rocket-0').addEventListener('click',(e) => { 
           // res_key = e.target.side
             console.log(e.target.id)
             var selection = Number(e.target.id.split("-")[1])
@@ -225,7 +225,7 @@ var jsPsychTwoStepTrial = (function (jspsych) {
             jsPsych.pluginAPI.keyUp('arrowleft');
   
           }, {once: true})
-          document.getElementById('body-1').addEventListener('click',(e) => { 
+          document.getElementById('rocket-1').addEventListener('click',(e) => { 
           // res_key = e.target.side
             console.log(e.target.id)
             var selection = Number(e.target.id.split("-")[1])

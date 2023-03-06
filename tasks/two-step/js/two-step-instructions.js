@@ -55,7 +55,7 @@ const quiz_1 = {
   prompts: [
     "How can you choose an alien to trade with?",
     "<i>True</i> or <i>False</i>:&nbsp;Your goal is to figure out which aliens are most likely to give treasure.",
-    "<i>True</i> or <i>False</i>:&nbsp;Some aliens may be more likely to give me treasue than others.",
+    "<i>True</i> or <i>False</i>:&nbsp;Some aliens may be more likely to give me treasure than others.",
   ],
   options: [
     ["a/d keys", "1/0 keys", "tap/touch it, or left/right arrow keys"],
