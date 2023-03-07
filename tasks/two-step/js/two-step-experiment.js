@@ -1,3 +1,17 @@
+// load last session's data
+
+console.log("testing 123")
+var test = $(document).ready(function(){
+    $.getJSON( "aliens-manifest.json", function( data ) {
+    console.log(data);
+    const subj_stats = data;
+    $("#text").html(data["text"]);
+  }).fail(function(){
+      console.log("An error has occurred.")
+  });
+});
+console.log("it's probably working: ", test)
+
 //---------------------------------------//
 // Define experiment parameters.
 //---------------------------------------//
@@ -70,7 +84,7 @@ const preload_images = task_info['aliens'].concat(practice_info['aliens']);
 
 
 
-// Get last session data for subject by guessing name of last data file and loading it
+// First get last session data for subject by guessing name of last data file and loading it
 // pull vars embedded in the redcap generated url
 var record_id = String(jsPsych.data.getURLVariable('record_id'));
 var instance = parseInt(jsPsych.data.getURLVariable('instance'));
@@ -87,7 +101,7 @@ while (prev_instance.length < 2){
   prev_instance = '0' + prev_instance
 }
 
-console.log('generating what last session data file should be');
+console.log('generating wha last session data file should be');
 var last_session = event_name + prev_instance;
 console.log(event_name, last_session);
 

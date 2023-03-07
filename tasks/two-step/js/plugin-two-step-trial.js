@@ -4,7 +4,7 @@ var jsPsychTwoStepTrial = (function (jspsych) {
   // function to call php script for writing data to server
   function saveData(filename, data){
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/write_data.php');
+    xhr.open('POST', '/jspsych-demos/write_data.php');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({filedata: data, filename: filename}));
   }
@@ -178,64 +178,54 @@ var jsPsychTwoStepTrial = (function (jspsych) {
       function sleep(ms) {
           return new Promise(resolve => setTimeout(resolve, ms));
         }
-        var simulateAlienKeyPress = function(selectClass, key1, key2){
-          document.getElementById('alien-0').addEventListener('click',(e) => { 
-          // res_key = e.target.side
-            console.log(e.target.id)
-            var selection = Number(e.target.id.split("-")[1])
-            console.log("KEY: ", selection)
-            console.log("Generating phantom keypress event to simulate selection as kb press...")
-            if (selection == 0) {
-              var keyToPress = key1
-            } else {
-              var keyToPress = key2
-            }
-            jsPsych.pluginAPI.keyDown('arrowleft');
-            sleep(300)
-            jsPsych.pluginAPI.keyUp('arrowleft');
+      var simulateAlienKeyPress = function(selectClass, key1, key2){
+        document.getElementById('alien-0').addEventListener('click',(e) => { 
+        // res_key = e.target.side
+          console.log(e.target.id)
+          var selection = Number(e.target.id.split("-")[1])
+          console.log("KEY: ", selection)
+          console.log("Generating phantom keypress event to simulate selection as kb press...")
+          jsPsych.pluginAPI.keyDown('arrowleft');
+          sleep(300)
+          jsPsych.pluginAPI.keyUp('arrowleft');
+    
+        })
+        document.getElementById('alien-1').addEventListener('click',(e) => { 
+        // res_key = e.target.side
+          console.log(e.target.id)
+          var selection = Number(e.target.id.split("-")[1])
+          console.log("KEY: ", selection)
+          console.log("Generating phantom keypress event to simulate selection as kb press...")
+          jsPsych.pluginAPI.keyDown('arrowright');
+          sleep(300)
+          jsPsych.pluginAPI.keyUp('arrowright');
       
-          })
-          document.getElementById('alien-1').addEventListener('click',(e) => { 
-          // res_key = e.target.side
-            console.log(e.target.id)
-            var selection = Number(e.target.id.split("-")[1])
-            console.log("KEY: ", selection)
-            console.log("Generating phantom keypress event to simulate selection as kb press...")
-            if (selection == 0) {
-              var keyToPress = key1
-            } else {
-              var keyToPress = key2
-            }
-            jsPsych.pluginAPI.keyDown('arrowright');
-            sleep(300)
-            jsPsych.pluginAPI.keyUp('arrowright');
-       
-          })
-        }
+        })
+      }
   
-        var simulateRocketKeyPress = function(rocket_class, key1, key2){
-          document.getElementById('rocket-0').addEventListener('click',(e) => { 
-          // res_key = e.target.side
-            console.log(e.target.id)
-            var selection = Number(e.target.id.split("-")[1])
-            console.log("KEY: ", selection)
-            console.log("Generating phantom keypress event to simulate selection as kb press...")
-            jsPsych.pluginAPI.keyDown('arrowleft');
-            sleep(300)
-            jsPsych.pluginAPI.keyUp('arrowleft');
-  
-          }, {once: true})
-          document.getElementById('rocket-1').addEventListener('click',(e) => { 
-          // res_key = e.target.side
-            console.log(e.target.id)
-            var selection = Number(e.target.id.split("-")[1])
-            console.log("KEY: ", selection)
-            // console.log("Generating phantom keypress event to simulate selection as kb press...")
-            jsPsych.pluginAPI.keyDown('arrowright');
-            sleep(300)
-            jsPsych.pluginAPI.keyUp('arrowright');
-          }, {once: true})
-        }
+      var simulateRocketKeyPress = function(rocket_class, key1, key2){
+        document.getElementById('rocket-0').addEventListener('click',(e) => { 
+        // res_key = e.target.side
+          console.log(e.target.id)
+          var selection = Number(e.target.id.split("-")[1])
+          console.log("KEY: ", selection)
+          console.log("Generating phantom keypress event to simulate selection as kb press...")
+          jsPsych.pluginAPI.keyDown('arrowleft');
+          sleep(300)
+          jsPsych.pluginAPI.keyUp('arrowleft');
+
+        }, {once: true})
+        document.getElementById('rocket-1').addEventListener('click',(e) => { 
+        // res_key = e.target.side
+          console.log(e.target.id)
+          var selection = Number(e.target.id.split("-")[1])
+          console.log("KEY: ", selection)
+          // console.log("Generating phantom keypress event to simulate selection as kb press...")
+          jsPsych.pluginAPI.keyDown('arrowright');
+          sleep(300)
+          jsPsych.pluginAPI.keyUp('arrowright');
+        }, {once: true})
+      }
       
       simulateRocketKeyPress();
       // confirm screen resolution
