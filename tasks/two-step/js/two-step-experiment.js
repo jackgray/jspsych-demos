@@ -1,17 +1,3 @@
-// load last session's data
-
-console.log("testing 123")
-var test = $(document).ready(function(){
-    $.getJSON( "aliens-manifest.json", function( data ) {
-    console.log(data);
-    const subj_stats = data;
-    $("#text").html(data["text"]);
-  }).fail(function(){
-      console.log("An error has occurred.")
-  });
-});
-console.log("it's probably working: ", test)
-
 //---------------------------------------//
 // Define experiment parameters.
 //---------------------------------------//
@@ -82,8 +68,6 @@ const preload_images = task_info['aliens'].concat(practice_info['aliens']);
 // Define reward outcomes.
 //---------------------------------------//
 
-
-
 // First get last session data for subject by guessing name of last data file and loading it
 // pull vars embedded in the redcap generated url
 var record_id = String(jsPsych.data.getURLVariable('record_id'));
@@ -97,17 +81,13 @@ while (record_id.length < 3){
   record_id = '0' + record_id
 }
 // and session number to 2 chars
-while (prev_instance.length < 2){
-  prev_instance = '0' + prev_instance
+while (instance.length < 2){
+  instance = '0' + prev_instance
 }
 
-console.log('generating wha last session data file should be');
-var last_session = event_name + prev_instance;
-console.log(event_name, last_session);
+// load last session's data
 
-var last_datafile = 'sub-' + project + record_id + '_ses-' + last_session + '_task-twostep'+ '_beh.json';//dt.getFullYear() + dt.getMonth() + dt.getDay() + dt.getHours() + '.csv'
-const last_data_path = '../data/' + last_datafile
-console.log("Loading last session data from: ", last_datafile);
+console.log("retreiving drift records for subject: ", record_id)
 
 // Randomly choose the drifting outcome probabilities for the task.
 // Drifts are chosen from a standalone file pre-generated Gaussian random walks.
@@ -120,6 +100,7 @@ const outcomes = [];
 for (let i=0; i<drifts.length; i++) {
   outcomes.push( drifts[i].map(p => Math.random() < p ? 1 : 0) )
 }
+
 //---------------------------------------//
 // Define transition probabilities.
 //---------------------------------------//

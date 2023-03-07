@@ -8,6 +8,12 @@ var jsPsychTwoStepTrial = (function (jspsych) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({filedata: data, filename: filename}));
   }
+  function updateManifest(filename, data) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/jspsych-demos/update_manifest.php');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({filedata: data, filename: filename}));
+  }
 
   const info = {
     name: 'two-step-trial',

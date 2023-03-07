@@ -133,11 +133,6 @@ var jsPsychTwoStepAlienPractice = (function (jspsych) {
           var selection = Number(e.target.id.split("-")[1])
           console.log("KEY: ", selection)
           console.log("Generating phantom keypress event to simulate selection as kb press...")
-          if (selection == 0) {
-            var keyToPress = key1
-          } else {
-            var keyToPress = key2
-          }
           jsPsych.pluginAPI.keyDown('arrowleft');
           sleep(300)
           jsPsych.pluginAPI.keyUp('arrowleft');
@@ -149,11 +144,6 @@ var jsPsychTwoStepAlienPractice = (function (jspsych) {
           var selection = Number(e.target.id.split("-")[1])
           console.log("KEY: ", selection)
           console.log("Generating phantom keypress event to simulate selection as kb press...")
-          if (selection == 0) {
-            var keyToPress = key1
-          } else {
-            var keyToPress = key2
-          }
           jsPsych.pluginAPI.keyDown('arrowright');
           sleep(300)
           jsPsych.pluginAPI.keyUp('arrowright');
