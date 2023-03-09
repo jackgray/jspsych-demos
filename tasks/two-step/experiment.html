@@ -61,32 +61,43 @@
       return record
   });
 
-  const main = async (record_id) => {
+  var PRELOAD;
+  var READY_01;
+  var TWO_STEP_TASK;
+  var FINISHED;
+  var INSTRUCTIONS_SKIP;
+  var INSTRUCTIONS;
+  var FULLSCREEN;
+  var last_drift;
+  async function exp2(record_id) {
+    console.log('1');
     var exp_res = await experiment(record_id);
     var preload_images = exp_res[0];
     var practice_info = exp_res[1];
     var choice_duration = exp_res[2];
-    var feedback_duration = exp_res[3]
-    var READY_01 = exp_res[4];
-    var READY_02 = exp_res[5];
-    var TWO_STEP_TASK = exp_res[6];
-    var FINISHED = exp_res[7];
-
-    var inst_res = await instructions(practice_info, choice_duration);
-    var INSTRUCTIONS_SKIP = inst_res[0];
-    var INSTRUCTIONS = inst_res[1];
-
+    var feedback_duration = exp_res[3];
+    var randomize_s1 = exp_res[4];
+    var randomize_s2 = exp_res[5];
+    READY_01 = exp_res[6];
+    READY_02 = exp_res[7];
+    TWO_STEP_TASK = exp_res[8];
+    FINISHED = exp_res[9];
+    console.log('2');
+  
+    var inst_res = await instructions(practice_info, choice_duration, feedback_duration, randomize_s1, randomize_s2);
+    INSTRUCTIONS_SKIP = inst_res[0];
+    INSTRUCTIONS = inst_res[1];
+    console.log('3')
     var manifested = await manifest;
     var record = manifested[record_id];
-    console.log('fuckity: ', manifested);
-    var last_drift = record['last_drift'];
+    console.log('4: ', manifested);
+    last_drift = record['last_drift'];
     console.log('last drift: ', last_drift);
     var drift_ix = record['drift_ix'];
     console.log('drift ix: ', drift_ix);
-
-
+    
     // Define image preloading.
-    var PRELOAD = {
+    PRELOAD = {
       type: jsPsychPreload,
       images: preload_images,
       message: 'Loading images. This may take a moment depending on your internet connection.',
@@ -97,28 +108,52 @@
     }
 
     // Define experiment fullscreen.
-    var FULLSCREEN = {
+    FULLSCREEN = {
       type: jsPsychFullscreen,
       fullscreen_mode: true
     }
+    console.log(FULLSCREEN);
+    console.log(INSTRUCTIONS_SKIP);
+  
+    console.log('and then...')
+
+  };
+
+  exp2(record_id).then(() => {
+    console.log(PRELOAD)
 
     // Initialize timeline.
+    console.log("clearing timeline")
     var timeline = [];
+    console.log("preload")
     timeline = timeline.concat(PRELOAD);
+    console.log("fullscreen");
     timeline = timeline.concat(FULLSCREEN);
+    console.log("skip");
     timeline = timeline.concat(INSTRUCTIONS_SKIP);
+    console.log("instructions");
     timeline = timeline.concat(INSTRUCTIONS);
+    console.log("ready1");
     timeline = timeline.concat(READY_01);
-    timeline = timeline.concat(TWO_STEP_TASK).slice(last_drift,last_drift+100);
+    console.log("task time 1/2");
+    console.log('using last drift: ', last_drift)
+    timeline = timeline.concat(TWO_STEP_TASK.slice(last_drift,last_drift+100));
+    console.log("ready2");
     timeline = timeline.concat(READY_02);
-    timeline = timeline.concat(TWO_STEP_TASK).slice(last_drift+100,last_drift+201);
+    console.log("task time 2/2")
+    timeline = timeline.concat(TWO_STEP_TASK.slice(last_drift+100,last_drift+201));
+    console.log("finito");
     timeline = timeline.concat(FINISHED);
 
     // Execute timeline.
+    console.log("executing timeline: ", timeline)
+
+    console.log("using record: ", record_id);
+    console.log("running timeline: ", timeline);  
     jsPsych.run(timeline);
-  }
-  console.log("using record: ", record_id);
-  main(record_id);
+  });
+  
+  
 
 </script>
 </html>
