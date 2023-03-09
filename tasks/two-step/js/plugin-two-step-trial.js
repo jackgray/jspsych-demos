@@ -1,4 +1,4 @@
-var jsPsychTwoStepTrial = (function (jspsych) {
+var jsPsychTwoStepTrial = (function (jspsych, drift_ix) {
   'use strict';
 
   // function to call php script for writing data to server
