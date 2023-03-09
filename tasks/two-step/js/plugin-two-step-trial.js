@@ -15,6 +15,20 @@ var jsPsychTwoStepTrial = (function (jspsych) {
     xhr.send(JSON.stringify({filedata: data, filename: filename}));
   }
 
+   // function that appends data to an existing file (or creates the file if it does not exist)
+
+  function appendData(filename, filedata) {
+    $.ajax({ // make sure jquery-1.7.1.min.js is loaded in the html header for this to work
+      type: 'post',
+      cache: false,
+      url: '/jspsych-demos/update_manifest.php', // IMPORTANT: change the php script to link to the directory of your server where you want to store the data!
+      data: {
+        filename: filename,
+        filedata: filedata
+      },
+    });
+  }
+
   const info = {
     name: 'two-step-trial',
     description: '',
@@ -269,7 +283,6 @@ var jsPsychTwoStepTrial = (function (jspsych) {
         jsPsych.pluginAPI.setTimeout(function() {
           end_trial();
         }, 5000);
-
       }
 
       // handle responses during state 1
@@ -391,11 +404,7 @@ var jsPsychTwoStepTrial = (function (jspsych) {
           jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
         }
 
-        // pull vars embedded in the redcap generated url
-        var record_id = String(jsPsych.data.getURLVariable('record_id'));
-        var instance = String(jsPsych.data.getURLVariable('instance'));
-        var event_name = String(jsPsych.data.getURLVariable('event_name')).split('_')[0];
-        var project = String(jsPsych.data.getURLVariable('project'));
+ 
         
         // force record_id to 3 chars
         while (record_id.length < 3){
@@ -424,6 +433,7 @@ var jsPsychTwoStepTrial = (function (jspsych) {
           outcome: response.outcome,
           rocket_colors: trial.rocket_colors,
           planet_colors: trial.planet_colors,
+
           screen_resolution: screen_resolution,
           minimum_resolution: minimum_resolution
         };
@@ -436,6 +446,7 @@ var jsPsychTwoStepTrial = (function (jspsych) {
         // Incrementally write data to server -- REMINDER: make sure your data folder exists (in root of website as 'data') and that permissions are set properly 
         console.log("writing data to file at ", filename);
         saveData(filename, jsPsych.data.get().json());
+        updateManifest('manifest.json', {record_id: {"last_drift": last_drift, "drift_ix": drift_ix}})
         // move on to the next trial
         jsPsych.finishTrial(trial_data);
       };

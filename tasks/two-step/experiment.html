@@ -55,21 +55,35 @@
     instance = '0' + prev_instance
   }
 
-  const manifest = fetch('manifest.json')
+  var manifest = fetch('manifest.json')
     .then((response) => response.json())
     .then((record) => {
       return record
-    });
+  });
 
-  const experiment = async (record_id) => {
+  const main = async (record_id) => {
+    var exp_res = await experiment(record_id);
+    var preload_images = exp_res[0];
+    var practice_info = exp_res[1];
+    var choice_duration = exp_res[2];
+    var feedback_duration = exp_res[3]
+    var READY_01 = exp_res[4];
+    var READY_02 = exp_res[5];
+    var TWO_STEP_TASK = exp_res[6];
+    var FINISHED = exp_res[7];
 
-    const manifested = await manifest;
-    const record = manifested[record_id];
+    var inst_res = await instructions(practice_info, choice_duration);
+    var INSTRUCTIONS_SKIP = inst_res[0];
+    var INSTRUCTIONS = inst_res[1];
+
+    var manifested = await manifest;
+    var record = manifested[record_id];
     console.log('fuckity: ', manifested);
-    let last_drift = record['last_drift'];
+    var last_drift = record['last_drift'];
     console.log('last drift: ', last_drift);
-    let drift_ix = record['drift_ix'];
+    var drift_ix = record['drift_ix'];
     console.log('drift ix: ', drift_ix);
+
 
     // Define image preloading.
     var PRELOAD = {
@@ -95,16 +109,16 @@
     timeline = timeline.concat(INSTRUCTIONS_SKIP);
     timeline = timeline.concat(INSTRUCTIONS);
     timeline = timeline.concat(READY_01);
-    timeline = timeline.concat(TWO_STEP_TASK.slice(last_drift,last_drift+100));
+    timeline = timeline.concat(TWO_STEP_TASK).slice(last_drift,last_drift+100);
     timeline = timeline.concat(READY_02);
-    timeline = timeline.concat(TWO_STEP_TASK.slice(last_drift+100,last_drift+201));
+    timeline = timeline.concat(TWO_STEP_TASK).slice(last_drift+100,last_drift+201);
     timeline = timeline.concat(FINISHED);
 
     // Execute timeline.
     jsPsych.run(timeline);
   }
   console.log("using record: ", record_id);
-  experiment(record_id);
+  main(record_id);
 
 </script>
 </html>

@@ -7,7 +7,7 @@ $filename = $post_data['filename'];
 // $file = uniqid("session-");
 // the directory "data" must be writable by the server
 
-$name = "data/{$filename}"; 
+$name = "../../data/{$filename}"; 
 // write the file to disk
 file_put_contents($name, $data);
 ?>
