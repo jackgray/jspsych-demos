@@ -88,13 +88,17 @@
     INSTRUCTIONS_SKIP = inst_res[0];
     INSTRUCTIONS = inst_res[1];
     console.log('3')
-    var manifested = await manifest;
-    var record = manifested[record_id];
-    console.log('4: ', manifested);
-    last_drift = record['last_drift'];
-    console.log('last drift: ', last_drift);
-    var drift_ix = record['drift_ix'];
-    console.log('drift ix: ', drift_ix);
+    try {
+      var manifested = await manifest;
+      var record = manifested[record_id];
+      console.log('4: ', manifested);
+      last_drift = record['last_drift'];
+      console.log('last drift: ', last_drift);
+      var drift_ix = record['drift_ix'];
+      console.log('drift ix: ', drift_ix);
+    } catch {
+      last_drift = 0;
+    }
     
     // Define image preloading.
     PRELOAD = {

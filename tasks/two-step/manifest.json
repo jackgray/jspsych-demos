@@ -1,6 +1,10 @@
 {
     "006": {
         "drift_ix": "2",
+        "last_drift": 9559
+    },
+    "003": {
+        "drift_ix": "1",
         "last_drift": 0
     }
 }

@@ -1,8 +1,13 @@
 <?php
-// the $_POST[] array will contain the passed in filename and filedata
+// get the data from the POST message
+$post_data = json_decode(file_get_contents('php://input'), true);
+$data = $post_data['filedata'];
+$filename = $post_data['filename'];
+// generate a unique ID for the file, e.g., session-6feu833950202 
+// $file = uniqid("session-");
 // the directory "data" must be writable by the server
-$filename = "../manifest.json".$_POST['filename'];
-$data = $_POST['filedata'];
+
+$name = "{$filename}"; 
 // write the file to disk
-file_put_contents($filename, $data, FILE_APPEND);
+file_put_contents($name, $data);
 ?>

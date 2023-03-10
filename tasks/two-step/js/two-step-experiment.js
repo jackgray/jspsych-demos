@@ -8,18 +8,20 @@ var manifest = fetch('manifest.json')
 });
 
 const experiment = async (record_id) => {
-
-  var manifested = await manifest;
-  console.log("record id: ", record_id)
-  var record = manifested[record_id];
-  console.log("recorddd: ", record)
-  console.log('fuckity: ', manifested);
-  var last_drift = record['last_drift'];
-  console.log('last drift: ', last_drift);
-  var drift_ix = record['drift_ix'];
+  try {
+    var manifested = await manifest;
+    console.log("record id: ", record_id)
+    var record = manifested[record_id];
+    console.log("record: ", record);
+    var last_drift = record['last_drift'];
+    console.log('last drift: ', last_drift);
+    var drift_ix = record['drift_ix'];
+  } catch {
+    console.log("No matching record found in manifest.json; defining random drift_ix and setting index to 0")
+    var drift_ix = jsPsych.randomization.sampleWithoutReplacement([0,1,2,3], 1)[0];
+    var last_drift = 0;
+  }
   console.log('drift ix: ', drift_ix);
-
-
 
   //---------------------------------------//
   // Define experiment parameters.
@@ -114,9 +116,7 @@ const experiment = async (record_id) => {
 
   // Randomly choose the drifting outcome probabilities for the task.
   // Drifts are chosen from a standalone file pre-generated Gaussian random walks.
-  if (typeof drift_ix == 'undefined') {
-    var drift_ix = jsPsych.randomization.sampleWithoutReplacement([0,1,2,3], 1)[0];
-  }
+
   console.log("checking if drift_ix idefined: ", drift_ix)
   const drifts = [drifts_01, drifts_02, drifts_03, drifts_04][drift_ix];
 

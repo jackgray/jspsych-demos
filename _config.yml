@@ -23,7 +23,7 @@ title: jspsych-demos
 description: >- # this means to ignore newlines until "baseurl:"
   jsPsych tasks made by the Niv Lab (and modified for mobile devices by @jackgray from the NARC Lab)
 baseurl: "/jspsych-demos" # the subpath of your site, e.g. /blog
-url: "https://jackgray.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://tasks.narclab.com" # the base hostname & protocol for your site, e.g. http://example.com
 
 # aesthetics
 logo: /assets/img/logo.png

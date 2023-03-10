@@ -4,13 +4,13 @@ var jsPsychTwoStepTrial = (function (jspsych, drift_ix) {
   // function to call php script for writing data to server
   function saveData(filename, data){
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/jspsych-demos/write_data.php');
+    xhr.open('POST', 'php/write_data.php');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({filedata: data, filename: filename}));
   }
   function updateManifest(filename, data) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/jspsych-demos/update_manifest.php');
+    xhr.open('POST', 'php/update_manifest.php');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({filedata: data, filename: filename}));
   }
@@ -21,7 +21,7 @@ var jsPsychTwoStepTrial = (function (jspsych, drift_ix) {
     $.ajax({ // make sure jquery-1.7.1.min.js is loaded in the html header for this to work
       type: 'post',
       cache: false,
-      url: '/jspsych-demos/update_manifest.php', // IMPORTANT: change the php script to link to the directory of your server where you want to store the data!
+      url: 'php/update_manifest.php', // IMPORTANT: change the php script to link to the directory of your server where you want to store the data!
       data: {
         filename: filename,
         filedata: filedata
