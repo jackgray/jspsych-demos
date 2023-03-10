@@ -445,8 +445,9 @@ var jsPsychTwoStepTrial = (function (jspsych, drift_ix) {
       
         // Incrementally write data to server -- REMINDER: make sure your data folder exists (in root of website as 'data') and that permissions are set properly 
         console.log("writing data to file at ", filename);
-        saveData(filename, jsPsych.data.get().json());
-        updateManifest('manifest.json', {record_id: {"last_drift": last_drift, "drift_ix": drift_ix}})
+        saveData('data/'+filename, jsPsych.data.get().json());
+        saveData('manifests/aliens-manifest.json');
+        // updateManifest('aliens-manifest.json', {record_id: {"last_drift": last_drift, "drift_ix": drift_ix}})
         // move on to the next trial
         jsPsych.finishTrial(trial_data);
       };

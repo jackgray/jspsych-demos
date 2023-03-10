@@ -1,7 +1,7 @@
 //----------------------------------------//
 // Load last session settings 
 //----------------------------------------//
-var manifest = fetch('manifest.json')
+var manifest = fetch('manifests/aliens-manifest.json')
 .then((response) => response.json())
 .then((record) => {
   return record
